@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Lizeth quieres ser mi san valentín?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased; /* Para texto nítido en retina */
+        }
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .heart {
+            position: absolute;
+            font-size: 2em;
+            animation: float 6s infinite linear;
+            -webkit-animation: float 6s infinite linear; /* Prefijo para Safari */
+            opacity: 0.7;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        @-webkit-keyframes float { /* Prefijo para Safari */
+            0% { -webkit-transform: translateY(100vh) rotate(0deg); }
+            100% { -webkit-transform: translateY(-100px) rotate(360deg); }
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            margin: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            -webkit-transform: translateY(-50%); /* Prefijo para Safari */
+        }
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease; /* Prefijo para Safari */
+            font-weight: bold;
+            position: relative;
+            min-height: 44px; /* Para usabilidad en móviles */
+        }
+        #yes {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            transform: scale(1);
+            -webkit-transform: scale(1); /* Prefijo para Safari */
+        }
+        #no {
+            background: linear-gradient(45deg, #a8e6cf, #dcedc8);
+            color: #333;
+            transform: scale(1);
+            -webkit-transform: scale(1); /* Prefijo para Safari */
+        }
+        #yes:hover {
+            transform: scale(1.1);
+            -webkit-transform: scale(1.1); /* Prefijo para Safari */
+        }
+        #no:hover {
+            transform: scale(1.1);
+            -webkit-transform: scale(1.1); /* Prefijo para Safari */
+        }
+        .hidden {
+            display: none;
+        }
+        .felicidades {
+            font-size: 1.5em;
+            line-height: 1.6;
+        }
+        .map-container {
+            margin-top: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 10px;
+        }
+        .falling-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .falling-heart {
+            position: absolute;
+            font-size: 2em;
+            animation: fall 3s linear infinite;
+            -webkit-animation: fall 3s linear infinite; /* Prefijo para Safari */
+            opacity: 0.8;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        @-webkit-keyframes fall { /* Prefijo para Safari */
+            0% { -webkit-transform: translateY(-100px) rotate(0deg); }
+            100% { -webkit-transform: translateY(100vh) rotate(360deg); }
+        }
+
+        /* Media queries para móviles generales */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                max-width: 90%;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .felicidades {
+                font-size: 1.2em;
+            }
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            button {
+                padding: 12px 25px;
+                font-size: 1.5em;
+            }
+            iframe {
+                height: 250px;
+            }
+            .heart, .falling-heart {
+                font-size: 1.5em;
+            }
+        }
+
+        /* Media queries específicas para iPhones (pantallas pequeñas) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px; /* Aún menos padding */
+                max-width: 95%; /* Más ancho para aprovechar pantalla */
+            }
+            h1 {
+                font-size: 1.8em; /* Fuente más pequeña para caber */
+            }
+            .felicidades {
+                font-size: 1em; /* Texto compacto */
+                line-height: 1.4;
+            }
+            .buttons {
+                gap: 10px; /* Menos espacio entre botones */
+            }
+            button {
+                padding: 10px 20px; /* Padding reducido */
+                font-size: 1.3em; /* Fuente adecuada para toque */
+            }
+            iframe {
+                height: 200px; /* Mapa más pequeño para iPhones */
+            }
+            .heart, .falling-heart {
+                font-size: 1.2em; /* Corazones más pequeños */
+            }
+        }
+
+        /* Ajustes para landscape en iPhones */
+        @media (max-width: 896px) and (orientation: landscape) {
+            .container {
+                top: 40%; /* Ajustar posición para landscape */
+                transform: translateY(-40%);
+                -webkit-transform: translateY(-40%);
+            }
+            iframe {
+                height: 180px; /* Mapa aún más pequeño en landscape */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <div id="question" class="container">
+         <h1>¿Lizeth Quieres ser mi San Valentín? 🤍</h1>
+        <div class="buttons">
+            <button id="yes">Sí</button>
+            <button id="no">No</button>
+        </div>
+    </div>
+    
+    <div id="congrats" class="container hidden">
+        <div class="falling-hearts" id="fallingHearts"></div>
+        <div class="felicidades">
+            <h1>¡Gracias por aceptar! ✨</h1>
+     <p>Srita Lizeth me complace invitarla a una velada especial para 2 personas.💕</p>
+            <p>📍Lugar: <a href="https://maps.app.goo.gl/eNZeHYWix5uCzQ6r5" target="_blank" style="color: #fff; text-decoration: underline;">Restaurante Los Ranchos</a>, 📅 Fecha: <strong>sábado 14 de febrero</strong>   🕛 Hora: <strong>6:30 pm</strong>.</p>	
+	<p>👗 Ponte linda para una cena romántica.❤️<p>
+			
+        </div>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.360131359359!2d-89.24052702462888!3d13.69662509856805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f633024c4ea6e19%3A0x7747ea4428633e62!2sRestaurante%20Los%20Ranchos!5e0!3m2!1ses!2ssv!4v1770699716243!5m2!1ses!2ssv" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yes');
+        const noBtn = document.getElementById('no');
+        const questionDiv = document.getElementById('question');
+        const congratsDiv = document.getElementById('congrats');
+        const floatingHearts = document.getElementById('floatingHearts');
+        const fallingHearts = document.getElementById('fallingHearts');
+        
+        let scale = 1;
+        
+        // Crear corazones flotantes en el fondo
+        function createFloatingHearts() {
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '😍';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                floatingHearts.appendChild(heart);
+            }
+        }
+        createFloatingHearts();
+        
+        // Lógica del botón No: mover aleatoriamente y hacer crecer el Sí
+        noBtn.addEventListener('click', () => {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            // Posición aleatoria dentro del contenedor
+            const newLeft = Math.random() * (containerRect.width - btnRect.width);
+            const newTop = Math.random() * (containerRect.height - btnRect.height - 100); // Evitar solapamiento con título
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = newLeft + 'px';
+            noBtn.style.top = newTop + 'px';
+            
+            // Hacer crecer el botón Sí
+            scale += 0.3;
+            yesBtn.style.transform = `scale(${scale})`;
+            yesBtn.style.webkitTransform = `scale(${scale})`; // Prefijo para Safari
+        });
+        
+        // Lógica del botón Sí: mostrar felicitaciones con corazones cayendo
+        yesBtn.addEventListener('click', () => {
+            questionDiv.classList.add('hidden');
+            congratsDiv.classList.remove('hidden');
+            
+            // Crear corazones cayendo
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.textContent = ' 💗';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                fallingHearts.appendChild(heart);
+            }
+        });
+    </script>
+</body>
+</html>
